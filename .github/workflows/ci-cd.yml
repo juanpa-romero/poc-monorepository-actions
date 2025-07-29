@@ -39,7 +39,7 @@ jobs:
           find . -type f -name "*.py" -o -name "*.json" -o -name "*.yml" -o -name "*.yaml" | head -20
 
   test-web-app:
-    uses: ./.github/workflows/unit-test.yml
+    uses: ./.github/workflows/quality-checks.yml
     with:
       node-version: "20.18.3"
       test-command: "npx turbo test"
