@@ -38,7 +38,7 @@ jobs:
           echo "📋 Detailed Structure:"
           find . -type f -name "*.py" -o -name "*.json" -o -name "*.yml" -o -name "*.yaml" | head -20
 
-  test-web-app:
+  quality-checks:
     uses: ./.github/workflows/quality-checks.yml
     with:
       node-version: "20.18.3"
