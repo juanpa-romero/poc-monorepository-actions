@@ -49,6 +49,6 @@ jobs:
 
       - name: Run tests
         id: test
-        run: ${{ inputs.test-command }} -- --coverage --watchAll=false
+        run: ${{ inputs.test-command }}
         env:
           CI: true
