@@ -41,7 +41,7 @@ jobs:
   test-web-app:
     uses: ./.github/workflows/unit-test.yml
     with:
-      node-version: "20.x"
+      node-version: "20.18.3"
       test-command: "turbo test"
       working-directory: "./apps/web"
 
