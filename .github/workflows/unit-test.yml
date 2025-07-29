@@ -11,7 +11,7 @@ on:
       test-command:
         description: "Test command to run"
         required: false
-        default: "turbo test"
+        default: "npx turbo test"
         type: string
       working-directory:
         description: "Working directory for the project"

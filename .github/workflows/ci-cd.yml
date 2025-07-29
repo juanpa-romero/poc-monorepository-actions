@@ -42,7 +42,7 @@ jobs:
     uses: ./.github/workflows/unit-test.yml
     with:
       node-version: "20.18.3"
-      test-command: "turbo test"
+      test-command: "npx turbo test"
       working-directory: "./apps/web"
 
 
