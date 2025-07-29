@@ -8,6 +8,16 @@ on:
         required: false
         default: "20.x"
         type: string
+      build-command:
+        description: "Build command to run"
+        required: false
+        default: "npx turbo build"
+        type: string
+      lint-command:
+        description: "Lint command to run"
+        required: false
+        default: "npx turbo lint"
+        type: string
       test-command:
         description: "Test command to run"
         required: false
@@ -24,6 +34,16 @@ on:
         value: ${{ jobs.test.outputs.result }}
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.build.outcome }}
+
+  lint:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.lint.outcome }}
+
   test:
     runs-on: ubuntu-latest
     outputs:
@@ -46,6 +66,18 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Run build
+        id: build
+        run: ${{ inputs.build-command }}
+        env:
+          CI: true
+
+      - name: Run lint
+        id: lint
+        run: ${{ inputs.lint-command }}
+        env:
+          CI: true
 
       - name: Run tests
         id: test

@@ -43,8 +43,9 @@ jobs:
     with:
       node-version: "20.18.3"
       test-command: "npx turbo test"
+      lint-command: "npx turbo lint"
+      build-command: "npx turbo build"
       working-directory: "./apps/web"
-
 
   # JOB 1: SOOS SCAN
   # soos-security-scan:
