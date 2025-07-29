@@ -1,0 +1,54 @@
+name: unit-test
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: "Node.js version to use"
+        required: false
+        default: "20.x"
+        type: string
+      test-command:
+        description: "Test command to run"
+        required: false
+        default: "turbo test"
+        type: string
+      working-directory:
+        description: "Working directory for the project"
+        required: false
+        default: "."
+        type: string
+    outputs:
+      test-result:
+        description: "Result of the test execution"
+        value: ${{ jobs.test.outputs.result }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.test.outcome }}
+
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "npm"
+          cache-dependency-path: "${{ inputs.working-directory }}/package-lock.json"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        id: test
+        run: ${{ inputs.test-command }} -- --coverage --watchAll=false
+        env:
+          CI: true
